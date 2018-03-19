@@ -53,14 +53,14 @@ var toDoList = (function(){
     }
 
     function prepareStr(str) {
-        return str.toLowerCase().replace(/[^\w\s\d]/gi, "").replace(/\s+/g,' ').trim();
+        return str.toLowerCase().replace(/[^\w\s\d]/gi, "").trim();
     }
 
     function findMatch() {
         var target = prepareStr(searchInput.value),
             findIn = ["userName", 'title'],
             result = [];
-        findIn.forEach(function (item){
+         findIn.forEach(function (item){
             result.push(...(allData.filter(function (entry) { return entry[item].match(new RegExp(target, 'gi'))})));
         });
         if(result.length){
@@ -75,6 +75,7 @@ var toDoList = (function(){
 
     function copyHintToInput(e) {
         searchInput.value = e.target.innerText;
+        console.log(e.target.classList.contains('hint-item'));
         showHintDropdown(false);
     }
 
@@ -88,7 +89,7 @@ var toDoList = (function(){
         }
         dropdownHint.innerHTML = '';
         arr.forEach(function(item) {
-            dropdownHint.innerHTML += '<a class="dropdown-item" href="#">'+ item +'</a>';
+            dropdownHint.innerHTML += '<a class="dropdown-item hint-item" href="#">'+ item +'</a>';
         });
         showHintDropdown(true);
     }
@@ -112,7 +113,6 @@ var toDoList = (function(){
         printHint(findHint(target));
     }
     /* search*/
-
     function checkToggle(e) {
         for (var i = 0; i < inputs.length; i++) {
             if (inputs[i].type == "checkbox") {
@@ -185,7 +185,7 @@ var toDoList = (function(){
     }
 
     function insertToTmp(obj) {
-        var count = row.length+1;
+        var count = row.length + 1;
         return  '<tr class="fade-in">' +
                     '<th scope="row"><input type="checkbox" id="' + obj.id +'"></th>' +
                     '<td>' + count +'</td>' +
